@@ -1,0 +1,600 @@
+
+<!DOCTYPE html>                    
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SIGNALS TEST MADE BY KRISHNA 4A</title>
+    <style>
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+<Signals test done by krishna 4a, according to mmd test pattern>
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .grid-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .grid {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Main Grid: 10x6 */
+        #mainGrid {
+            grid-template-columns: repeat(6, 50px);
+            grid-template-rows: repeat(10, 50px);
+        }
+
+        /* Additional Grid: 2x16 (Horizontal Grouping) */
+        #additionalGrid {
+            grid-template-columns: repeat(16, 50px);
+            grid-template-rows: repeat(2, 50px);
+        }
+
+        .cell {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            user-select: none;
+            position: relative;
+        }
+
+        .cell input {
+            background: none;
+            border: none;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            font-size: 1.2em;
+            outline: none;
+            border-radius: 10px;
+        }
+
+        .cell:hover {
+            background-color: #2a2a2a;
+        }
+
+        /* Highlighted Cell */
+        .cell.highlighted {
+            background-color: #555;
+            box-shadow: 0 0 10px #fff;
+        }
+
+        .flashing-box {
+            width: 300px;
+            height: 150px;
+            background-color: #1e1e1e;
+            border: 2px solid #333;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            transition: background-color 0.1s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+        }
+
+        /* Fullscreen Styles */
+        .flashing-box.fullscreen {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            border-radius: 0;
+            z-index: 1000;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 300px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #3a3a3a;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            background: #3a3a3a;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type=range]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .duration-display {
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* Progress Bar Styles */
+        .progress-container {
+            width: 100%;
+            background-color: #3a3a3a;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 20px;
+            margin-top: 10px;
+	margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #4caf50;
+            transition: width 0.3s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            #mainGrid {
+                grid-template-columns: repeat(6, 40px);
+                grid-template-rows: repeat(10, 40px);
+            }
+
+            #additionalGrid {
+                grid-template-columns: repeat(16, 40px);
+                grid-template-rows: repeat(2, 40px);
+            }
+
+            .flashing-box {
+                width: 80%;
+                height: 100px;
+            }
+
+            .controls {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #mainGrid {
+                grid-template-columns: repeat(6, 30px);
+                grid-template-rows: repeat(10, 30px);
+            }
+
+            #additionalGrid {
+                grid-template-columns: repeat(16, 30px);
+                grid-template-rows: repeat(2, 30px);
+            }
+
+            .flashing-box {
+                width: 90%;
+                height: 80px;
+                font-size: 1.5em;
+            }
+
+            .controls {
+                width: 90%;
+            }
+
+            .progress-container {
+                height: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SIGNALS TEST</h1>
+
+    <!-- Main Grid Section -->
+    <div class="grid-container" id="mainGridContainer">
+        <h2>Main Grid (10x6)</h2>
+        <div class="grid" id="mainGrid">
+            <!-- Grid cells will be generated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Additional Grid Section -->
+    <div class="grid-container" id="additionalGridContainer">
+        <h2>Additional Grid (2x16)</h2>
+        <div class="grid" id="additionalGrid">
+            <!-- Additional grid cells will be generated by JavaScript -->
+        </div>
+    </div>
+
+    <div class="flashing-box" id="flashingBox">
+        <!-- Flashing box -->
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="controls">
+        <button class="button" id="startStopButton">Start</button>
+        <button class="button" id="randomizeButton">Randomize</button>
+        <button class="button" id="toggleGridButton">Hide Grid</button>
+        <button class="button" id="fullscreenButton">Full Screen</button>
+        <div class="slider-container">
+            <label for="durationSlider">Dot Duration:</label>
+            <input type="range" id="durationSlider" min="0.1" max="2" step="0.1" value="0.5">
+            <span class="duration-display" id="durationDisplay">0.5s</span>
+        </div>
+    </div>
+
+    <script>
+        // Morse code mapping
+        const morseCodeMap = {
+            'A': '.-',    'B': '-...',  'C': '-.-.', 
+            'D': '-..',   'E': '.',     'F': '..-.',
+            'G': '--.',   'H': '....',  'I': '..',
+            'J': '.---',  'K': '-.-',   'L': '.-..',
+            'M': '--',    'N': '-.',    'O': '---',
+            'P': '.--.',  'Q': '--.-',  'R': '.-.',
+            'S': '...',   'T': '-',     'U': '..-',
+            'V': '...-',  'W': '.--',   'X': '-..-',
+            'Y': '-.--',  'Z': '--..',
+            '0': '-----', '1': '.----', '2': '..---',
+            '3': '...--', '4': '....-', '5': '.....',
+            '6': '-....', '7': '--...', '8': '---..',
+            '9': '----.'
+        };
+
+        const mainGridContainer = document.getElementById('mainGrid');
+        const additionalGridContainer = document.getElementById('additionalGrid');
+        const flashingBox = document.getElementById('flashingBox');
+        const startStopButton = document.getElementById('startStopButton');
+        const randomizeButton = document.getElementById('randomizeButton');
+        const toggleGridButton = document.getElementById('toggleGridButton');
+        const fullscreenButton = document.getElementById('fullscreenButton');
+        const durationSlider = document.getElementById('durationSlider');
+        const durationDisplay = document.getElementById('durationDisplay');
+        const progressBar = document.getElementById('progressBar');
+
+        let isRunning = false;
+        let timer = null;
+        let mainGridSequence = [];
+        let additionalGridGroups = [];
+        let currentGroupIndex = 0;
+        let currentCellIndex = 0;
+        let totalSteps = 0;
+        let completedSteps = 0;
+
+        // Function to create grid cells
+        function createGrid(container, rows, cols) {
+            for(let i=0; i<rows; i++) {
+                for(let j=0; j<cols; j++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.maxLength = 1;
+                    input.value = getRandomAlphanumeric();
+                    cell.appendChild(input);
+                    container.appendChild(cell);
+                }
+            }
+        }
+
+        // Function to get a random alphanumeric character
+        function getRandomAlphanumeric() {
+            const alphanumerics = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            return alphanumerics.charAt(Math.floor(Math.random() * alphanumerics.length));
+        }
+
+        // Initialize grids
+        createGrid(mainGridContainer, 10, 6); // Main Grid: 10x6
+        createGrid(additionalGridContainer, 2, 16); // Additional Grid: 2x16
+
+        const mainGridInputs = Array.from(mainGridContainer.querySelectorAll('input'));
+        const additionalGridInputs = Array.from(additionalGridContainer.querySelectorAll('input'));
+
+        // Group additional grid cells into groups of 4 (horizontally)
+        for(let i=0; i<additionalGridInputs.length; i += 4) {
+            const group = additionalGridInputs.slice(i, i + 4);
+            additionalGridGroups.push(group);
+        }
+
+        // Handle duration slider
+        durationSlider.addEventListener('input', () => {
+            durationDisplay.textContent = `${durationSlider.value}s`;
+        });
+
+        // Randomize button functionality
+        randomizeButton.addEventListener('click', () => {
+            randomizeGrid(mainGridInputs);
+            randomizeGrid(additionalGridInputs);
+        });
+
+        function randomizeGrid(inputs) {
+            inputs.forEach(input => {
+                input.value = getRandomAlphanumeric();
+            });
+        }
+
+        // Toggle Grid button functionality
+        toggleGridButton.addEventListener('click', () => {
+            const mainGridParent = document.getElementById('mainGridContainer');
+            const additionalGridParent = document.getElementById('additionalGridContainer');
+            const isHidden = mainGridParent.classList.contains('hidden');
+
+            if(isHidden) {
+                mainGridParent.classList.remove('hidden');
+                additionalGridParent.classList.remove('hidden');
+                toggleGridButton.textContent = 'Hide Grid';
+            } else {
+                mainGridParent.classList.add('hidden');
+                additionalGridParent.classList.add('hidden');
+                toggleGridButton.textContent = 'Show Grid';
+            }
+        });
+
+        // Fullscreen button functionality
+        fullscreenButton.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                // Enter fullscreen
+                flashingBox.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                });
+                fullscreenButton.textContent = 'Exit Full Screen';
+            } else {
+                // Exit fullscreen
+                document.exitFullscreen();
+                fullscreenButton.textContent = 'Full Screen';
+            }
+        });
+
+        // Listen for fullscreen change to update button text
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                fullscreenButton.textContent = 'Full Screen';
+            }
+        });
+
+        // Start/Stop button functionality
+        startStopButton.addEventListener('click', () => {
+            if(isRunning) {
+                stopSequence();
+            } else {
+                startSequence();
+            }
+        });
+
+        function startSequence() {
+            isRunning = true;
+            startStopButton.textContent = 'Stop';
+            completedSteps = 0;
+
+            // Prepare sequences
+            mainGridSequence = mainGridInputs
+                                .map(input => ({ char: input.value.toUpperCase(), cell: input.parentElement }))
+                                .filter(item => morseCodeMap[item.char]);
+
+            // Calculate total steps for progress bar
+            totalSteps = mainGridSequence.length;
+
+            // Additional Grid: 8 groups of 4 cells each
+            additionalGridGroups = [];
+            for(let i=0; i<additionalGridInputs.length; i += 4) {
+                const group = additionalGridInputs.slice(i, i + 4);
+                additionalGridGroups.push(group);
+            }
+            totalSteps += additionalGridGroups.length * 4; // 4 steps per group
+
+            currentGroupIndex = 0;
+            currentCellIndex = 0;
+
+            playMainGrid();
+        }
+
+        function stopSequence() {
+            isRunning = false;
+            startStopButton.textContent = 'Start';
+            clearTimeout(timer);
+            flashingBox.style.backgroundColor = '#1e1e1e';
+            removeHighlight();
+            updateProgressBar();
+        }
+
+        async function playMainGrid() {
+            for(let i=0; i<mainGridSequence.length; i++) {
+                if(!isRunning) return;
+
+                const currentItem = mainGridSequence[i];
+                const morse = morseCodeMap[currentItem.char];
+
+                // Highlight the current cell if grids are visible
+                if(!mainGridContainer.classList.contains('hidden') && !additionalGridContainer.classList.contains('hidden')) {
+                    highlightCell(currentItem.cell);
+                }
+
+                if(morse) {
+                    await playMorse(morse);
+                    // Wait 1 dot duration between letters
+                    await wait(getDotDuration());
+                }
+
+                // Remove highlight after Morse code is played
+                removeHighlight();
+
+                // Update progress
+                completedSteps++;
+                updateProgressBar();
+            }
+
+            // After main grid, start additional grid
+            playAdditionalGrid();
+        }
+
+        async function playAdditionalGrid() {
+            for(let i=0; i<additionalGridGroups.length; i++) {
+                if(!isRunning) return;
+
+                const group = additionalGridGroups[i];
+
+                for(let j=0; j<group.length; j++) {
+                    const input = group[j];
+                    const char = input.value.toUpperCase();
+                    const morse = morseCodeMap[char];
+
+                    if(morse) {
+                        // Highlight the current cell if grids are visible
+                        if(!mainGridContainer.classList.contains('hidden') && !additionalGridContainer.classList.contains('hidden')) {
+                            highlightCell(input.parentElement);
+                        }
+
+                        await playMorse(morse);
+                        // Wait 1 dot duration between letters
+                        await wait(getDotDuration());
+
+                        // Remove highlight after Morse code is played
+                        removeHighlight();
+
+                        // Update progress
+                        completedSteps++;
+                        updateProgressBar();
+                    }
+                }
+
+                // Wait 2 dot durations between groups
+                await wait(2 * getDotDuration());
+
+                // Update progress for the pause between groups
+                completedSteps += 0; // Optionally, you can represent pauses as steps
+                updateProgressBar();
+            }
+
+            // Sequence finished
+            isRunning = false;
+            startStopButton.textContent = 'Start';
+            flashingBox.style.backgroundColor = '#1e1e1e';
+            removeHighlight();
+        }
+
+        function getDotDuration() {
+            return parseFloat(durationSlider.value) * 1000; // in milliseconds
+        }
+
+        function wait(duration) {
+            return new Promise(resolve => {
+                timer = setTimeout(() => {
+                    resolve();
+                }, duration);
+            });
+        }
+
+        async function playMorse(morse) {
+            for(let symbol of morse) {
+                if(!isRunning) break;
+                if(symbol === '.') {
+                    await flashBox(getDotDuration());
+                } else if(symbol === '-') {
+                    await flashBox(2 * getDotDuration());
+                }
+                // Wait 1 dot duration between symbols
+                await wait(getDotDuration());
+            }
+        }
+
+        function flashBox(duration) {
+            return new Promise(resolve => {
+                flashingBox.style.backgroundColor = '#ffffff';
+                setTimeout(() => {
+                    flashingBox.style.backgroundColor = '#1e1e1e';
+                    resolve();
+                }, duration);
+            });
+        }
+
+        // Highlight a specific cell
+        function highlightCell(cell) {
+            cell.classList.add('highlighted');
+        }
+
+        // Remove highlight from all cells
+        function removeHighlight() {
+            const highlightedCells = document.querySelectorAll('.cell.highlighted');
+            highlightedCells.forEach(cell => cell.classList.remove('highlighted'));
+        }
+
+        // Update the progress bar
+        function updateProgressBar() {
+            const progressPercentage = (completedSteps / totalSteps) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+        }
+
+        // Handle fullscreen change to update button text if user exits fullscreen via ESC
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                fullscreenButton.textContent = 'Full Screen';
+            }
+        });
+
+        // Initial randomization
+        randomizeButton.click();
+    </script>
+
+</body>
+</html>
